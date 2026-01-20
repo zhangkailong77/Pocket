@@ -1,0 +1,506 @@
+@use './variables.scss' as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: $font-family;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: $bg-page;
+  color: $text-regular;
+  line-height: 1.6;
+}
+
+#app {
+  width: 100%;
+  min-height: 100vh;
+}
+
+// 滚动条样式
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $bg-muted;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $border-base;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $text-secondary;
+}
+
+// 通用类
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.mt-1 {
+  margin-top: $spacing-small;
+}
+
+.mt-2 {
+  margin-top: $spacing-base;
+}
+
+.mt-3 {
+  margin-top: $spacing-large;
+}
+
+.mb-1 {
+  margin-bottom: $spacing-small;
+}
+
+.mb-2 {
+  margin-bottom: $spacing-base;
+}
+
+.mb-3 {
+  margin-bottom: $spacing-large;
+}
+
+.ml-1 {
+  margin-left: $spacing-small;
+}
+
+.ml-2 {
+  margin-left: $spacing-base;
+}
+
+.mr-1 {
+  margin-right: $spacing-small;
+}
+
+.mr-2 {
+  margin-right: $spacing-base;
+}
+
+.p-1 {
+  padding: $spacing-small;
+}
+
+.p-2 {
+  padding: $spacing-base;
+}
+
+.p-3 {
+  padding: $spacing-large;
+}
+
+// 卡片样式
+.el-card {
+  border: 1px solid $border-base;
+  transition: $transition-base;
+  background: $bg-color;
+  box-shadow: $box-shadow-light;
+
+  &:hover {
+    box-shadow: $box-shadow-base;
+    border-color: $border-light;
+  }
+
+  .el-card__header {
+    border-bottom: 1px solid $border-light;
+    padding: 20px;
+    background: $bg-color;
+  }
+
+  .el-card__body {
+    padding: 20px;
+    background: $bg-color;
+  }
+}
+
+// 按钮样式增强 - 移除 Element Plus 默认样式
+.el-button {
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: $transition-base;
+  border: 1px solid transparent;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: $box-shadow-base;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  // 移除默认的primary按钮样式
+  &--primary {
+    background: $accent-color;
+    border-color: $accent-color;
+    color: #FFFFFF;
+
+    &:hover,
+    &:focus {
+      background: #0284C7;
+      border-color: #0284C7;
+    }
+
+    &:active {
+      background: #0369A1;
+    }
+  }
+
+  // Success 按钮
+  &--success {
+    background: $success-color;
+    border-color: $success-color;
+    color: #FFFFFF;
+
+    &:hover,
+    &:focus {
+      background: #047857;
+      border-color: #047857;
+    }
+  }
+
+  // Warning 按钮
+  &--warning {
+    background: $warning-color;
+    border-color: $warning-color;
+    color: #FFFFFF;
+
+    &:hover,
+    &:focus {
+      background: #B45309;
+      border-color: #B45309;
+    }
+  }
+
+  // Danger 按钮
+  &--danger {
+    background: $danger-color;
+    border-color: $danger-color;
+    color: #FFFFFF;
+
+    &:hover,
+    &:focus {
+      background: #B91C1C;
+      border-color: #B91C1C;
+    }
+  }
+
+  // Default 按钮
+  &--default {
+    background: $bg-color;
+    border-color: $border-base;
+    color: $text-regular;
+
+    &:hover,
+    &:focus {
+      background: $bg-muted;
+      border-color: $text-secondary;
+      color: $text-primary;
+    }
+  }
+}
+
+// Link 按钮
+.el-button.is-link {
+  &:hover {
+    color: $accent-color;
+  }
+}
+
+// 输入框样式增强
+.el-input__wrapper {
+  transition: $transition-base;
+  border-radius: $border-radius-base;
+
+  &:hover {
+    box-shadow: 0 0 0 1px $accent-color inset;
+  }
+
+  &.is-focus {
+    box-shadow: 0 0 0 1px $accent-color inset !important;
+  }
+}
+
+// Select 选择器
+.el-select .el-input__wrapper {
+  &:hover {
+    box-shadow: 0 0 0 1px $accent-color inset;
+  }
+}
+
+// Tag 标签
+.el-tag {
+  border: 1px solid transparent;
+  font-weight: 500;
+
+  &--primary {
+    background: #E0F2FE;
+    border-color: #BAE6FD;
+    color: #0369A1;
+  }
+
+  &--success {
+    background: #D1FAE5;
+    border-color: #A7F3D0;
+    color: #059669;
+  }
+
+  &--warning {
+    background: #FEF3C7;
+    border-color: #FDE68A;
+    color: #D97706;
+  }
+
+  &--danger {
+    background: #FEE2E2;
+    border-color: #FECACA;
+    color: #DC2626;
+  }
+
+  &--info {
+    background: #E0F2FE;
+    border-color: #BAE6FD;
+    color: #0891B2;
+  }
+}
+
+// Progress 进度条
+.el-progress-bar__inner {
+  background: $accent-color;
+}
+
+// Pagination 分页
+.el-pagination.is-background .el-pager li {
+  &.is-active {
+    background: $accent-color;
+    color: #FFFFFF;
+  }
+
+  &:hover {
+    color: $accent-color;
+  }
+}
+
+// Checkbox 复选框
+.el-checkbox__input.is-checked .el-checkbox__inner {
+  background: $accent-color;
+  border-color: $accent-color;
+}
+
+.el-checkbox__input.is-indeterminate .el-checkbox__inner {
+  background: $accent-color;
+  border-color: $accent-color;
+}
+
+// Radio 单选框
+.el-radio__input.is-checked .el-radio__inner {
+  background: $accent-color;
+  border-color: $accent-color;
+}
+
+// Switch 开关
+.el-switch.is-checked .el-switch__core {
+  background: $accent-color;
+}
+
+// Table 表格
+.el-table {
+  color: $text-regular;
+
+  th {
+    background: $bg-muted;
+    color: $text-primary;
+    font-weight: 600;
+  }
+
+  tr:hover > td {
+    background: $bg-muted;
+  }
+}
+
+// Menu 菜单
+.el-menu-item {
+  color: $text-regular;
+
+  &:hover {
+    background: $bg-muted;
+    color: $accent-color;
+  }
+
+  &.is-active {
+    background: #E0F2FE;
+    color: $accent-color;
+    font-weight: 600;
+  }
+}
+
+// Dropdown 下拉
+.el-dropdown-menu {
+  border: 1px solid $border-base;
+  box-shadow: $box-shadow-base;
+
+  .el-dropdown-menu__item {
+    color: $text-regular;
+
+    &:hover {
+      background: $bg-muted;
+      color: $accent-color;
+    }
+  }
+}
+
+// Dialog 对话框
+.el-dialog {
+  border: 1px solid $border-base;
+  box-shadow: $box-shadow-dark;
+}
+
+// Message 消息
+.el-message {
+  box-shadow: $box-shadow-base;
+  border: 1px solid $border-base;
+
+  &--success {
+    background: #F0FDF4;
+    border-color: #BBF7D0;
+  }
+
+  &--warning {
+    background: #FFFBEB;
+    border-color: #FEF3C7;
+  }
+
+  &--error {
+    background: #FEF2F2;
+    border-color: #FEE2E2;
+  }
+
+  &--info {
+    background: #F0F9FF;
+    border-color: #BAE6FD;
+  }
+}
+
+// 动画类
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.fade-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.3s ease;
+}
+
+.slide-enter-from {
+  transform: translateX(-100%);
+}
+
+.slide-leave-to {
+  transform: translateX(100%);
+}
+
+// 响应式工具类
+@media (max-width: $breakpoint-xs) {
+  .hide-xs {
+    display: none !important;
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .hide-sm {
+    display: none !important;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .hide-md {
+    display: none !important;
+  }
+}
+
+@media (max-width: $breakpoint-lg) {
+  .hide-lg {
+    display: none !important;
+  }
+}
+
+// 加载动画
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.loading {
+  animation: rotate 1s linear infinite;
+}
+
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+// 骨架屏样式
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    $bg-muted 25%,
+    $border-light 50%,
+    $bg-muted 75%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+  border-radius: $border-radius-base;
+}

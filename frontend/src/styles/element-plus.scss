@@ -1,0 +1,16 @@
+// 自定义 Element Plus 组件样式
+// 注意：主要的组件样式已经在 global.scss 中定义
+// 这个文件仅用于额外的全局样式覆盖
+
+// 消息提示框样式优化
+.el-message-box {
+  border-radius: $border-radius-large;
+}
+
+.el-notification {
+  border-radius: $border-radius-large;
+}
+
+.el-dialog {
+  border-radius: $border-radius-large;
+}

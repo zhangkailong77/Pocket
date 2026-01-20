@@ -1,0 +1,75 @@
+// 主题色彩 - 专业企业配色方案 (UI/UX Pro Max 推荐)
+$primary-color: #0F172A;
+$secondary-color: #334155;
+$accent-color: #0369A1;
+$success-color: #059669;
+$warning-color: #D97706;
+$danger-color: #DC2626;
+$info-color: #0891B2;
+
+// 渐变色
+$gradient-primary: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+$gradient-accent: linear-gradient(135deg, #0369A1 0%, #0EA5E9 100%);
+$gradient-success: linear-gradient(135deg, #059669 0%, #10B981 100%);
+$gradient-info: linear-gradient(135deg, #0891B2 0%, #06B6D4 100%);
+
+// 文字颜色
+$text-primary: #020617;
+$text-regular: #334155;
+$text-secondary: #64748B;
+$text-placeholder: #94A3B8;
+
+// 边框颜色
+$border-base: #E2E8F0;
+$border-light: #F1F5F9;
+$border-lighter: #F8FAFC;
+
+// 背景颜色
+$bg-color: #FFFFFF;
+$bg-page: #F8FAFC;
+$bg-muted: #F1F5F9;
+
+// 圆角
+$border-radius-base: 8px;
+$border-radius-small: 4px;
+$border-radius-large: 12px;
+$border-radius-round: 20px;
+$border-radius-circle: 50%;
+
+// 阴影
+$box-shadow-light: 0 1px 3px rgba(0, 0, 0, 0.05);
+$box-shadow-base: 0 1px 8px rgba(0, 0, 0, 0.08);
+$box-shadow-dark: 0 4px 16px rgba(0, 0, 0, 0.1);
+
+// 字体
+$font-family: 'Inter', 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+  'Microsoft YaHei', Arial, sans-serif;
+$font-size-extra-large: 20px;
+$font-size-large: 18px;
+$font-size-medium: 16px;
+$font-size-base: 14px;
+$font-size-small: 13px;
+$font-size-extra-small: 12px;
+
+// 间距
+$spacing-base: 16px;
+$spacing-small: 8px;
+$spacing-large: 24px;
+$spacing-extra-large: 32px;
+
+// 过渡动画
+$transition-base: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-slow: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// 断点
+$breakpoint-xs: 480px;
+$breakpoint-sm: 768px;
+$breakpoint-md: 992px;
+$breakpoint-lg: 1200px;
+$breakpoint-xl: 1920px;
+
+// Z-index
+$z-index-normal: 1;
+$z-index-top: 1000;
+$z-index-popper: 2000;
