@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: pocket-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: pocket
+      MYSQL_USER: ${MYSQL_USER:-pocket}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-pocket123}
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"
+    networks:
+      - pocket-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    container_name: pocket-backend
+    environment:
+      DATABASE_URL: mysql+pymysql://${MYSQL_USER:-pocket}:${MYSQL_PASSWORD:-pocket123}@mysql:3306/pocket
+      UPLOAD_DIR: /data/uploads
+    volumes:
+      - ./data/uploads:/data/uploads
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    networks:
+      - pocket-net
+
+  frontend:
+    build: ./frontend
+    container_name: pocket-frontend
+    depends_on:
+      - backend
+    networks:
+      - pocket-net
+
+  nginx:
+    image: nginx:alpine
+    container_name: pocket-nginx
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./frontend/dist:/usr/share/nginx/html:ro
+      - ./data/uploads:/data/uploads:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - pocket-net
+
+volumes:
+  mysql-data:
+
+networks:
+  pocket-net:
+    driver: bridge
