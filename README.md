@@ -29,19 +29,42 @@
 
 ### 使用 Docker Compose
 
+**选项 1：使用外部数据库（推荐）**
+
+如果你已有局域网内的 MySQL 数据库（如 192.168.31.11:3306）：
+
 1. 复制环境变量文件：
 ```bash
 cp .env.example .env
 ```
 
-2. 修改 `.env` 文件中的数据库密码
+2. 修改 `.env` 文件中的数据库配置：
+```bash
+MYSQL_HOST=192.168.31.11
+MYSQL_USER=root
+MYSQL_PASSWORD=123456
+```
 
-3. 启动所有服务：
+3. 启动服务（不启动 MySQL 容器）：
+```bash
+docker-compose up -d backend frontend nginx
+```
+
+4. 访问 `http://localhost` 查看应用
+
+**选项 2：使用 Docker 内置 MySQL**
+
+1. 复制环境变量文件：
+```bash
+cp .env.example .env
+```
+
+2. 启动所有服务：
 ```bash
 docker-compose up -d
 ```
 
-4. 访问 `http://localhost` 查看应用
+3. 访问 `http://localhost` 查看应用
 
 ### 本地开发
 
@@ -55,23 +78,58 @@ npm run dev
 
 访问 `http://localhost:3000`
 
-#### 后端开发
+#### 后端开发（使用 conda 虚拟环境）
+
+**首次使用 - 环境设置**：
 
 ```bash
 cd backend
-pip install -r requirements.txt
-# 设置环境变量 DATABASE_URL
-uvicorn app.main:app --reload --port 8000
+
+# Windows
+setup_conda.bat
+
+# Linux/Mac
+bash setup_conda.sh
+```
+
+这个脚本会：
+- 创建名为 `pocket-backend` 的 conda 虚拟环境（Python 3.11）
+- 安装所有依赖包
+- 配置数据库连接
+
+**初始化数据库**：
+
+```bash
+cd backend
+
+# Windows
+init_db.bat
+
+# Linux/Mac
+bash init_db.sh
+```
+
+**启动后端服务**：
+
+```bash
+cd backend
+
+# Windows
+start_server.bat
+
+# Linux/Mac
+bash start_server.sh
+```
+
+或手动执行：
+```bash
+conda activate pocket-backend
+set DATABASE_URL=mysql+pymysql://root:123456@192.168.31.11:3306/pocket  # Windows
+export DATABASE_URL=mysql+pymysql://root:123456@192.168.31.11:3306/pocket  # Linux/Mac
+python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 访问 `http://localhost:8000` 查看 API 文档
-
-#### 数据库迁移
-
-```bash
-cd backend
-alembic upgrade head
-```
 
 ## 项目结构
 
@@ -110,10 +168,18 @@ alembic upgrade head
 
 主要配置项见 `.env.example`：
 
-- `MYSQL_ROOT_PASSWORD`: MySQL root 密码
-- `MYSQL_USER`: MySQL 用户名
-- `MYSQL_PASSWORD`: MySQL 密码
+- `MYSQL_HOST`: MySQL 服务器地址（默认：192.168.31.11）
+- `MYSQL_PORT`: MySQL 端口（默认：3306）
+- `MYSQL_USER`: MySQL 用户名（默认：root）
+- `MYSQL_PASSWORD`: MySQL 密码（默认：123456）
+- `MYSQL_DATABASE`: 数据库名（默认：pocket）
+- `DATABASE_URL`: 完整数据库连接字符串
 - `UPLOAD_DIR`: 文件上传目录
+
+**注意**：
+- 如果使用局域网内的 MySQL，直接修改 `backend/app/core/config.py` 和 `.env` 文件
+- 确保数据库服务器允许外部连接（检查 MySQL 的 bind-address 和防火墙设置）
+- 首次使用需要先创建 `pocket` 数据库并运行 `docker/init.sql` 初始化表结构
 
 ## 开发计划
 

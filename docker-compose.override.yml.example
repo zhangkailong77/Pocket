@@ -1,0 +1,20 @@
+# 本地开发使用外部数据库的配置示例
+# 复制此文件为 docker-compose.override.yml 并修改数据库配置
+
+version: '3.8'
+
+services:
+  # 注释掉 MySQL 容器，使用外部数据库
+  # mysql:
+  #   ...
+
+  backend:
+    environment:
+      # 连接到外部 MySQL 数据库
+      DATABASE_URL: mysql+pymysql://root:123456@192.168.31.11:3306/pocket
+    extra_hosts:
+      # 允许容器访问宿主机网络
+      - "host.docker.internal:host-gateway"
+
+  # 移除对 mysql 的依赖
+  # depends_on: 中的 mysql 将被覆盖
